@@ -57,7 +57,9 @@ RUN uv sync --frozen --no-dev --python python3.11 || \
 RUN /app/.venv/bin/python -c "import torch; print('[torch]', torch.__version__, 'cuda:', torch.version.cuda)"
 
 # ==================== RunPod SDK + hf-transfer (fast HF downloads) ====================
-RUN /app/.venv/bin/pip install --no-cache-dir \
+# uv venv doesn't include pip binary; install pip first, then use python -m pip
+RUN uv pip install pip --python /app/.venv/bin/python \
+    && /app/.venv/bin/python -m pip install --no-cache-dir \
         runpod \
         hf-transfer \
         boto3
