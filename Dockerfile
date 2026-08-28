@@ -56,11 +56,10 @@ RUN uv sync --frozen --no-dev --python python3.11 || \
 # Verify torch
 RUN /app/.venv/bin/python -c "import torch; print('[torch]', torch.__version__, 'cuda:', torch.version.cuda)"
 
-# ==================== RunPod SDK + hf_transfer (fast HF downloads) ====================
+# ==================== RunPod SDK + hf-transfer (fast HF downloads) ====================
 RUN /app/.venv/bin/pip install --no-cache-dir \
         runpod \
-        hf_transfer \
-        'huggingface_hub[hf_transfer]' \
+        hf-transfer \
         boto3
 
 # ==================== Copy handler.py ====================
